@@ -793,43 +793,43 @@
 </div>
 
 <nav class="nav">
-  <button class="nav-btn active" onclick="showSection('resumen')">
+  <button class="nav-btn active" onclick="showSection('resumen',this)">
     <span class="nav-icon">📊</span><span>Resumen</span>
   </button>
-  <button class="nav-btn" onclick="showSection('quincena')" id="navQuincena">
+  <button class="nav-btn" onclick="showSection('quincena',this)" id="navQuincena">
     <span class="nav-icon">💵</span><span>Quincena</span>
   </button>
-  <button class="nav-btn" onclick="showSection('fondos')">
+  <button class="nav-btn" onclick="showSection('fondos',this)">
     <span class="nav-icon">💼</span><span>Categorías</span>
   </button>
-  <button class="nav-btn" onclick="showSection('bovedas')">
+  <button class="nav-btn" onclick="showSection('bovedas',this)">
     <span class="nav-icon">🏦</span><span>Bóvedas</span>
   </button>
-  <button class="nav-btn" onclick="showSection('gastos')">
+  <button class="nav-btn" onclick="showSection('gastos',this)">
     <span class="nav-icon">💸</span><span>Gastos</span>
   </button>
-  <button class="nav-btn" onclick="showSection('recurrentes')">
+  <button class="nav-btn" onclick="showSection('recurrentes',this)">
     <span class="nav-icon">🔁</span><span>Recurrentes</span>
   </button>
-  <button class="nav-btn" onclick="showSection('analisis')">
+  <button class="nav-btn" onclick="showSection('analisis',this)">
     <span class="nav-icon">📈</span><span>Análisis</span>
   </button>
-  <button class="nav-btn" onclick="showSection('simulador')">
+  <button class="nav-btn" onclick="showSection('simulador',this)">
     <span class="nav-icon">🔮</span><span>Simulador</span>
   </button>
-  <button class="nav-btn" onclick="showSection('ia')">
+  <button class="nav-btn" onclick="showSection('ia',this)">
     <span class="nav-icon">🤖</span><span>Consejero</span>
   </button>
-  <button class="nav-btn" onclick="showSection('metas')">
+  <button class="nav-btn" onclick="showSection('metas',this)">
     <span class="nav-icon">🎯</span><span>Metas</span>
   </button>
-  <button class="nav-btn" onclick="showSection('historial')">
+  <button class="nav-btn" onclick="showSection('historial',this)">
     <span class="nav-icon">📅</span><span>Historial</span>
   </button>
-  <button class="nav-btn" onclick="showSection('calendario')">
+  <button class="nav-btn" onclick="showSection('calendario',this)">
     <span class="nav-icon">🗓️</span><span>Calendario</span>
   </button>
-  <button class="nav-btn" onclick="showSection('config')">
+  <button class="nav-btn" onclick="showSection('config',this)">
     <span class="nav-icon">⚙️</span><span>Config</span>
   </button>
 </nav>
@@ -1579,23 +1579,22 @@ function showToast(msg, color='var(--green)') {
 }
 
 // ============ NAV ============
-function showSection(id) {
+function showSection(id, btnEl) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('section-'+id).classList.add('active');
-  event.currentTarget.classList.add('active');
-  if (id === 'historial') renderHistorial();
-  if (id === 'config') renderConfig();
-  if (id === 'fondos') renderFondos();
-  if (id === 'analisis') renderAnalisisInit();
-  if (id === 'quincena') renderQuincena();
-  if (id === 'simulador') { calcSim(); renderSimComparativa(); }
-  if (id === 'bovedas') renderBovedas();
-  if (id === 'recurrentes') renderRecurrentes();
-  if (id === 'ia') { /* already rendered */ }
-  if (id === 'calendario') renderCalendario();
-  if (id === 'resumen') renderNotaMes();
-  if (id === 'config') renderConfig();
+  const sec = document.getElementById('section-'+id);
+  if (sec) sec.classList.add('active');
+  if (btnEl) btnEl.classList.add('active');
+  try { if (id === 'historial') renderHistorial(); } catch(e) {}
+  try { if (id === 'config') renderConfig(); } catch(e) {}
+  try { if (id === 'fondos') renderFondos(); } catch(e) {}
+  try { if (id === 'analisis') renderAnalisisInit(); } catch(e) {}
+  try { if (id === 'quincena') renderQuincena(); } catch(e) {}
+  try { if (id === 'simulador') { calcSim(); renderSimComparativa(); } } catch(e) {}
+  try { if (id === 'bovedas') renderBovedas(); } catch(e) {}
+  try { if (id === 'recurrentes') renderRecurrentes(); } catch(e) {}
+  try { if (id === 'calendario') renderCalendario(); } catch(e) {}
+  try { if (id === 'resumen') renderNotaMes(); } catch(e) {}
 }
 
 // ============ FONDOS ============
@@ -3523,15 +3522,16 @@ function renderNotasHistorial() {
 
 // ============ INIT ============
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('fechaMovimiento').value = new Date().toISOString().slice(0,10);
-  render();
-  checkQuincenaPendiente();
-  document.getElementById('simAhorroLabel').textContent = fmt(0);
-  document.getElementById('simBonosLabel').textContent = fmt(0);
-  document.getElementById('simReducLabel').textContent = fmt(0);
-  autoAplicarRecurrentes();
-  renderResumenSemanal();
-  renderNotaMes();
+  try { document.getElementById('fechaMovimiento').value = new Date().toISOString().slice(0,10); } catch(e) {}
+  try { render(); } catch(e) { console.error('render error:', e); }
+  try { checkQuincenaPendiente(); } catch(e) {}
+  try { document.getElementById('simAhorroLabel').textContent = fmt(0); } catch(e) {}
+  try { document.getElementById('simBonosLabel').textContent = fmt(0); } catch(e) {}
+  try { document.getElementById('simReducLabel').textContent = fmt(0); } catch(e) {}
+  try { autoAplicarRecurrentes(); } catch(e) {}
+  try { renderResumenSemanal(); } catch(e) {}
+  try { renderNotaMes(); } catch(e) {}
+  try { renderResumenGastosFijos(); } catch(e) {}
 });
 
 // ============ EDICIÓN INLINE DE CATEGORÍAS ============
