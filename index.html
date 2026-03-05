@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Mis Finanzas · Dashboard</title>
 <meta name="theme-color" content="#0a0a0f">
 <meta name="mobile-web-app-capable" content="yes">
@@ -18,10 +18,7 @@
   %22theme_color%22:%22%230a0a0f%22,
   %22icons%22:[{%22src%22:%22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='80' fill='%2312121a'/%3E%3Ctext y='340' x='80' font-size='320'%3E💰%3C/text%3E%3C/svg%3E%22,%22sizes%22:%22512x512%22,%22type%22:%22image/svg+xml%22}]
 }">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0a0f;
@@ -43,8 +40,7 @@
     color: var(--text);
     font-family: 'DM Mono', monospace;
     min-height: 100vh;
-    overscroll-behavior: none;
-    padding-bottom: max(100px, calc(100px + env(safe-area-inset-bottom)));
+    padding-bottom: 100px;
   }
   /* HEADER */
   .header {
@@ -95,9 +91,7 @@
     border-bottom: 1px solid var(--border);
     overflow-x: auto;
     scrollbar-width: none;
-    position: -webkit-sticky;
     position: sticky; top:0; z-index:100;
-    -webkit-overflow-scrolling: touch;
   }
   .nav::-webkit-scrollbar { display:none; }
   .nav-btn {
@@ -117,9 +111,8 @@
   .nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
 
   /* SECTIONS */
-  .section { display:none; padding:20px; -webkit-animation: fadeIn 0.3s ease; animation: fadeIn 0.3s ease; }
+  .section { display:none; padding:20px; animation: fadeIn 0.3s ease; }
   .section.active { display:block; }
-  @-webkit-keyframes fadeIn { from {opacity:0; -webkit-transform:translateY(8px)} to {opacity:1; -webkit-transform:translateY(0)} }
   @keyframes fadeIn { from {opacity:0; transform:translateY(8px)} to {opacity:1; transform:translateY(0)} }
 
   /* CARDS */
@@ -339,7 +332,7 @@
   /* TOAST */
   .toast {
     position: fixed;
-    bottom: max(90px, calc(90px + env(safe-area-inset-bottom))); left:50%; transform:translateX(-50%) translateY(20px);
+    bottom: 90px; left:50%; transform:translateX(-50%) translateY(20px);
     background: var(--green);
     color: #000;
     font-family: 'Syne', sans-serif;
@@ -477,7 +470,6 @@
     width: 100%; max-width: 480px;
     animation: slideUp 0.3s cubic-bezier(.4,0,.2,1);
   }
-  @-webkit-keyframes slideUp { from { -webkit-transform: translateY(100%) } to { -webkit-transform: translateY(0) } }
   @keyframes slideUp { from { transform: translateY(100%) } to { transform: translateY(0) } }
   .modal-icon { font-size: 40px; margin-bottom: 12px; }
   .modal-title { font-family:'Syne',sans-serif; font-size:18px; font-weight:800; margin-bottom:6px; }
@@ -595,7 +587,6 @@
     text-align: center;
     animation: scaleIn 0.4s cubic-bezier(.34,1.56,.64,1);
   }
-  @-webkit-keyframes scaleIn { from{-webkit-transform:scale(0.5);opacity:0} to{-webkit-transform:scale(1);opacity:1} }
   @keyframes scaleIn { from{transform:scale(0.5);opacity:0} to{transform:scale(1);opacity:1} }
   .hito-emoji { font-size: 56px; margin-bottom:12px; }
   .hito-title { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; margin-bottom:8px; }
@@ -757,7 +748,7 @@
     </div>
     <div class="form-group" style="margin-bottom:12px;">
       <label class="form-label">Monto ($)</label>
-      <input type="number" class="form-input" id="editMovMonto" placeholder="0.00" inputmode="decimal" step="any">
+      <input type="number" class="form-input" id="editMovMonto" placeholder="0.00">
     </div>
     <div class="form-group" style="margin-bottom:12px;">
       <label class="form-label">Nota</label>
@@ -802,43 +793,43 @@
 </div>
 
 <nav class="nav">
-  <button class="nav-btn active" onclick="showSection('resumen',this)">
+  <button class="nav-btn active" onclick="showSection('resumen')">
     <span class="nav-icon">📊</span><span>Resumen</span>
   </button>
-  <button class="nav-btn" onclick="showSection('quincena',this)" id="navQuincena">
+  <button class="nav-btn" onclick="showSection('quincena')" id="navQuincena">
     <span class="nav-icon">💵</span><span>Quincena</span>
   </button>
-  <button class="nav-btn" onclick="showSection('fondos',this)">
+  <button class="nav-btn" onclick="showSection('fondos')">
     <span class="nav-icon">💼</span><span>Categorías</span>
   </button>
-  <button class="nav-btn" onclick="showSection('bovedas',this)">
+  <button class="nav-btn" onclick="showSection('bovedas')">
     <span class="nav-icon">🏦</span><span>Bóvedas</span>
   </button>
-  <button class="nav-btn" onclick="showSection('gastos',this)">
+  <button class="nav-btn" onclick="showSection('gastos')">
     <span class="nav-icon">💸</span><span>Gastos</span>
   </button>
-  <button class="nav-btn" onclick="showSection('recurrentes',this)">
+  <button class="nav-btn" onclick="showSection('recurrentes')">
     <span class="nav-icon">🔁</span><span>Recurrentes</span>
   </button>
-  <button class="nav-btn" onclick="showSection('analisis',this)">
+  <button class="nav-btn" onclick="showSection('analisis')">
     <span class="nav-icon">📈</span><span>Análisis</span>
   </button>
-  <button class="nav-btn" onclick="showSection('simulador',this)">
+  <button class="nav-btn" onclick="showSection('simulador')">
     <span class="nav-icon">🔮</span><span>Simulador</span>
   </button>
-  <button class="nav-btn" onclick="showSection('ia',this)">
+  <button class="nav-btn" onclick="showSection('ia')">
     <span class="nav-icon">🤖</span><span>Consejero</span>
   </button>
-  <button class="nav-btn" onclick="showSection('metas',this)">
+  <button class="nav-btn" onclick="showSection('metas')">
     <span class="nav-icon">🎯</span><span>Metas</span>
   </button>
-  <button class="nav-btn" onclick="showSection('historial',this)">
+  <button class="nav-btn" onclick="showSection('historial')">
     <span class="nav-icon">📅</span><span>Historial</span>
   </button>
-  <button class="nav-btn" onclick="showSection('calendario',this)">
+  <button class="nav-btn" onclick="showSection('calendario')">
     <span class="nav-icon">🗓️</span><span>Calendario</span>
   </button>
-  <button class="nav-btn" onclick="showSection('config',this)">
+  <button class="nav-btn" onclick="showSection('config')">
     <span class="nav-icon">⚙️</span><span>Config</span>
   </button>
 </nav>
@@ -928,7 +919,7 @@
 
   <div class="alert-box alert-info">
     <div class="alert-title">📌 Tu hoja de ruta financiera</div>
-    Basado en tu ingreso de <strong id="metasIngresoLabel">$26,834</strong>/mes y tus gastos activos de <strong id="metasGastosLabel">~$16,588</strong>/mes, tienes aproximadamente <strong id="metasDisponibleLabel">$10,246</strong> disponibles para ahorro cada mes (sin bono).
+    Basado en tu ingreso de $26,834/mes y tus gastos activos de ~$16,588/mes, tienes aproximadamente <strong>$10,246 disponibles para ahorro</strong> cada mes (sin bono).
   </div>
 
   <!-- FASE 1 -->
@@ -1020,7 +1011,7 @@
 
     <div class="form-group">
       <label class="form-label">Monto ($)</label>
-      <input type="number" class="form-input" id="montoMovimiento" placeholder="0.00" inputmode="decimal" step="any">
+      <input type="number" class="form-input" id="montoMovimiento" placeholder="0.00">
     </div>
 
     <div class="form-group">
@@ -1101,7 +1092,7 @@
     </div>
     <div class="form-group">
       <label class="form-label">Saldo actual</label>
-      <input type="number" class="form-input" id="bovedaSaldo" placeholder="0.00" inputmode="decimal" step="any">
+      <input type="number" class="form-input" id="bovedaSaldo" placeholder="0.00">
     </div>
     <button class="btn-primary" onclick="agregarBoveda()">Guardar bóveda</button>
   </div>
@@ -1137,7 +1128,7 @@
     </div>
     <div class="form-group">
       <label class="form-label">Monto</label>
-      <input type="number" class="form-input" id="recMonto" placeholder="0.00" inputmode="decimal" step="any">
+      <input type="number" class="form-input" id="recMonto" placeholder="0.00">
     </div>
     <div class="form-group">
       <label class="form-label">Día del mes de cobro</label>
@@ -1173,7 +1164,7 @@
       <div class="chat-msg ai">¡Hola! 👋 Soy tu consejero financiero. Tengo acceso a todos tus datos: ahorro, gastos, categorías y metas. ¿En qué te puedo ayudar hoy?</div>
     </div>
     <div class="chat-input-row">
-      <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." autocorrect="off" autocapitalize="none" spellcheck="false" onkeydown="if(event.key==='Enter'&&!event.isComposing) enviarMensajeIA()" onkeyup="if(event.key==='Enter'&&!event.isComposing) enviarMensajeIA()">
+      <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." onkeydown="if(event.key==='Enter') enviarMensajeIA()">
       <button class="chat-send" onclick="enviarMensajeIA()">➤</button>
     </div>
   </div>
@@ -1382,19 +1373,19 @@
 
     <div class="form-group">
       <label class="form-label">Ingreso quincenal</label>
-      <input type="number" class="form-input" id="cfgIngresoQuincenal" value="13417" inputmode="decimal" step="any">
+      <input type="number" class="form-input" id="cfgIngresoQuincenal" value="13417">
     </div>
     <div class="form-group">
       <label class="form-label">Bono trimestral</label>
-      <input type="number" class="form-input" id="cfgBono" value="9384" inputmode="decimal" step="any">
+      <input type="number" class="form-input" id="cfgBono" value="9384">
     </div>
     <div class="form-group">
       <label class="form-label">Meta Fase 1 ($)</label>
-      <input type="number" class="form-input" id="cfgMeta1" value="56000" inputmode="decimal" step="any">
+      <input type="number" class="form-input" id="cfgMeta1" value="56000">
     </div>
     <div class="form-group">
       <label class="form-label">Ahorro actual (acumulado)</label>
-      <input type="number" class="form-input" id="cfgAhorro" value="13477.23" inputmode="decimal" step="any">
+      <input type="number" class="form-input" id="cfgAhorro" value="13477.23">
     </div>
     <button class="btn-primary" onclick="guardarConfig()" style="margin-bottom:12px;">Guardar cambios</button>
   </div>
@@ -1410,7 +1401,7 @@
     <button class="btn-secondary" onclick="exportarDatos()" style="width:100%; margin-bottom:10px;">📤 Exportar datos (JSON)</button>
     <button class="btn-secondary" onclick="document.getElementById('importarInput').click()" style="width:100%; margin-bottom:10px;">📥 Importar datos (JSON)</button>
     <input type="file" id="importarInput" accept=".json" style="display:none;" onchange="importarDatos(this)">
-    <button class="btn-secondary" onclick="borrarMovimientos()" style="width:100%; color:var(--red); border-color:rgba(248,113,113,0.3);">Borrar movimientos</button>
+    <button class="btn-secondary" onclick="if(confirm('¿Borrar todos los movimientos?')) borrarMovimientos()" style="width:100%; color:var(--red); border-color:rgba(248,113,113,0.3);">Borrar movimientos</button>
   </div>
 
   <div class="card">
@@ -1442,19 +1433,6 @@
       <button class="btn-secondary" onclick="cerrarModalOverflow()" style="width:100%; text-align:center; padding:12px;">
         Ignorar por ahora
       </button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL CONFIRMACIÓN (reemplaza confirm() nativo — no funciona en Safari iOS PWA) -->
-<div class="modal-overlay hidden" id="modalConfirm">
-  <div class="modal-box">
-    <div class="modal-icon" id="modalConfirmIcon">⚠️</div>
-    <div class="modal-title" id="modalConfirmTitle"></div>
-    <div class="modal-sub" id="modalConfirmSub"></div>
-    <div class="modal-btns">
-      <button class="btn-primary" id="modalConfirmOk" style="background:linear-gradient(135deg,#f87171,#dc2626);">Confirmar</button>
-      <button class="btn-secondary" onclick="cerrarConfirm()" style="width:100%; text-align:center; padding:12px; margin-top:4px;">Cancelar</button>
     </div>
   </div>
 </div>
@@ -1506,15 +1484,7 @@ const defaultState = {
   notas: {}
 };
 
-// Fecha local YYYY-MM-DD (evita desfase UTC en Safari iOS)
-function fechaHoy() {
-  const d = new Date();
-  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-}
-
-function _uid() {
-  try { return crypto.randomUUID(); } catch(e) { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
-}
+function loadState() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
@@ -1539,24 +1509,12 @@ let _saveTimer = null;
 function saveState() {
   clearTimeout(_saveTimer);
   _saveTimer = setTimeout(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    } catch(e) {
-      if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
-        showToast('⚠️ Almacenamiento lleno. Exporta tus datos.', '#f59e0b');
-      }
-    }
-  }, 400);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }, 400); // agrupa escrituras en 400ms
 }
 function saveStateNow() {  // para cerrar mes y operaciones críticas
   clearTimeout(_saveTimer);
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch(e) {
-    if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
-      showToast('⚠️ Almacenamiento lleno. Exporta tus datos.', '#f59e0b');
-    }
-  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
 // ============ CACHE DE CÁLCULOS ============
@@ -1575,7 +1533,7 @@ function getComputedStats() {
   const ingresoMensual = config.ingresoQuincenal * 2;
   const disponibleAhorro = ingresoMensual - gastoActivoMensual;
   const conBono = disponibleAhorro + (config.bono / 3);
-  const mesesParaMeta = faltan > 0 ? (conBono > 0 ? (faltan / conBono).toFixed(1) : '∞') : 0;
+  const mesesParaMeta = faltan > 0 ? (faltan / conBono).toFixed(1) : 0;
   const movsMk = movimientos.filter(m => m.fecha && m.fecha.startsWith(mk));
   const estesMes = movsMk.filter(m => m.tipo === 'ahorro').reduce((s, m) => s + m.monto, 0);
   _cache.stats = { meta, ahorrado, pct: pct.toFixed(1), faltan, gastoActivoMensual, ingresoMensual, disponibleAhorro, conBono, mesesParaMeta, estesMes, mk, movsMk };
@@ -1587,15 +1545,10 @@ let state = loadState();
 // ============ UTILIDADES OPTIMIZADAS ============
 const _fmtCache = new Map();
 function fmt(n) {
-  if (isNaN(n) || n === null || n === undefined) return '$0';
   const k = Math.round(n * 100);
   if (_fmtCache.has(k)) return _fmtCache.get(k);
-  const absN = Math.abs(n);
-  const decimals = (absN % 1 !== 0) ? 2 : 0;
-  const parts = absN.toFixed(decimals).split('.');
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  const r = (n < 0 ? '-$' : '$') + parts.join('.');
-  if (_fmtCache.size > 500) _fmtCache.clear();
+  const r = '$' + Number(n).toLocaleString('es-MX', {minimumFractionDigits: n % 1 !== 0 ? 2 : 0, maximumFractionDigits: 2});
+  if (_fmtCache.size > 500) _fmtCache.clear(); // evitar memory leak
   _fmtCache.set(k, r);
   return r;
 }
@@ -1625,40 +1578,24 @@ function showToast(msg, color='var(--green)') {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-// Sanitizar texto para innerHTML (evitar XSS en chat)
-function sanitizeHTML(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
-let _confirmCallback = null;
-function mostrarConfirm(titulo, sub, onOk) {
-  _confirmCallback = onOk;
-  document.getElementById('modalConfirmTitle').textContent = titulo;
-  document.getElementById('modalConfirmSub').textContent = sub;
-  document.getElementById('modalConfirmOk').onclick = () => { cerrarConfirm(); onOk(); };
-  document.getElementById('modalConfirm').classList.remove('hidden');
-}
-function cerrarConfirm() {
-  document.getElementById('modalConfirm').classList.add('hidden');
-  _confirmCallback = null;
-}
-
 // ============ NAV ============
-function showSection(id, btnEl) {
+function showSection(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  const sec = document.getElementById('section-'+id);
-  if (sec) sec.classList.add('active');
-  if (btnEl) btnEl.classList.add('active');
-  try { if (id === 'historial') renderHistorial(); } catch(e) {}
-  try { if (id === 'config') renderConfig(); } catch(e) {}
-  try { if (id === 'fondos') renderFondos(); } catch(e) {}
-  try { if (id === 'analisis') renderAnalisisInit(); } catch(e) {}
-  try { if (id === 'quincena') renderQuincena(); } catch(e) {}
-  try { if (id === 'simulador') { calcSim(); renderSimComparativa(); } } catch(e) {}
-  try { if (id === 'bovedas') renderBovedas(); } catch(e) {}
-  try { if (id === 'recurrentes') renderRecurrentes(); } catch(e) {}
-  try { if (id === 'calendario') renderCalendario(); } catch(e) {}
-  try { if (id === 'resumen') renderNotaMes(); } catch(e) {}
+  document.getElementById('section-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (id === 'historial') renderHistorial();
+  if (id === 'config') renderConfig();
+  if (id === 'fondos') renderFondos();
+  if (id === 'analisis') renderAnalisisInit();
+  if (id === 'quincena') renderQuincena();
+  if (id === 'simulador') { calcSim(); renderSimComparativa(); }
+  if (id === 'bovedas') renderBovedas();
+  if (id === 'recurrentes') renderRecurrentes();
+  if (id === 'ia') { /* already rendered */ }
+  if (id === 'calendario') renderCalendario();
+  if (id === 'resumen') renderNotaMes();
+  if (id === 'config') renderConfig();
 }
 
 // ============ FONDOS ============
@@ -1823,7 +1760,7 @@ function mostrarSiguienteOverflow() {
   const { g, saldoActual } = overflowActual;
   const excedente = saldoActual - OVERFLOW_TARGET;
 
-  document.getElementById('modalOverflowTitle').textContent = `${g.icon} ${g.nombre} llegó a ${fmt(saldoActual)}`;
+  document.getElementById('modalOverflowTitle').textContent = `${g.icon} ${g.nombre} llegó a $${saldoActual.toLocaleString('es-MX')}`;
   document.getElementById('modalOverflowSub').textContent =
     `Esta categoría acumuló más de ${fmt(OVERFLOW_LIMIT)}. Te recomendamos bajarla a ${fmt(OVERFLOW_TARGET)} y pasar el excedente al ahorro de la meta.`;
   document.getElementById('modalOverflowDetail').innerHTML = `
@@ -1847,7 +1784,6 @@ function aplicarRecorteCategoria() {
   if (!overflowActual) return;
   const { g, saldoActual, gastadoMov } = overflowActual;
   const excedente = saldoActual - OVERFLOW_TARGET;
-  if (!isFinite(excedente) || excedente <= 0) { cerrarModalOverflow(); return; }
 
   // Bajar saldo de la categoría a $5,000
   g.saldoInicial = OVERFLOW_TARGET + gastadoMov; // compensar lo ya gastado para que quede $5k disponibles
@@ -2064,11 +2000,11 @@ function recibirQuincena(numero) {
   const ya = state.quincenas.find(q => q.mes === mk && q.numero === numero);
   if (ya) { showToast('Ya registraste esta quincena', '#f59e0b'); return; }
 
-  const hoy = fechaHoy();
+  const hoy = new Date().toISOString().slice(0,10);
   const monto = state.config.ingresoQuincenal;
 
   // Registrar quincena
-  state.quincenas.push({ id: _uid(), mes: mk, numero, fecha: hoy, monto });
+  state.quincenas.push({ id: Date.now().toString(), mes: mk, numero, fecha: hoy, monto });
 
   // Recargar cada categoría activa con su presupuesto quincenal
   state.gastosFijos.forEach(g => {
@@ -2078,7 +2014,7 @@ function recibirQuincena(numero) {
   });
 
   // Registrar como movimiento de ingreso
-  state.movimientos.push({ id: _uid(), tipo:'ingreso', categoria:'Quincena', monto, nota:`${numero}ª quincena`, fecha: hoy });
+  state.movimientos.push({ id: Date.now().toString()+'q', tipo:'ingreso', categoria:'Quincena', monto, nota:`${numero}ª quincena`, fecha: hoy });
 
   saveState();
   render();
@@ -2192,7 +2128,6 @@ function renderChart() {
   const canvas = document.getElementById('chartAhorro');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  if (!ctx) return;
 
   // Construir puntos: mes a mes con el acumulado de ahorro
   const { movimientos, config } = state;
@@ -2219,7 +2154,7 @@ function renderChart() {
   }
 
   // Acumulado progresivo
-  let acum = Math.max(0, config.ahorroActual - Object.values(porMes).reduce((s,v)=>s+v,0));
+  let acum = config.ahorroActual - Object.values(porMes).reduce((s,v)=>s+v,0);
   const labels = [];
   const dataAhorro = [];
   const dataMeta = [];
@@ -2234,7 +2169,7 @@ function renderChart() {
   });
 
   // Dibujar manualmente (sin Chart.js externo)
-  const W = canvas.getBoundingClientRect().width || canvas.offsetWidth || 320;
+  const W = canvas.offsetWidth || 320;
   const H = 180;
   canvas.width = W;
   canvas.height = H;
@@ -2369,9 +2304,6 @@ function renderPresupuestoVsReal(mk) {
 
 function render() {
   invalidarCache();
-  // Generar resumen primero para que los IDs dinámicos existan
-  try { renderResumenGastosFijos(); } catch(e) {}
-
   const s = getComputedStats();
   const { config } = state;
 
@@ -2415,6 +2347,9 @@ function render() {
   // Header
   setText('dispIngresoMensual', fmt(s.ingresoMensual));
   setText('dispSaldoLibre', fmt(s.disponibleAhorro));
+  setText('dispSaldoLibreMensual', '≈' + fmt(Math.round(s.disponibleAhorro)) + '/mes');
+  setText('dispSaldoLibreQuincenal', '≈' + fmt(Math.round(s.disponibleAhorro / 2)) + '/quincena');
+  setText('dispConBono', '≈' + fmt(Math.round(s.conBono)) + '/mes');
 
   // Hero
   setStyle('progressFill', 'width', s.pct + '%');
@@ -2423,7 +2358,7 @@ function render() {
   setText('pctHero', s.pct + '%');
   setText('faltanHero', fmt(s.faltan));
   setText('mesesHero', '~' + s.mesesParaMeta);
-  setText('ahorroMensualHero', fmt(Math.max(0, Math.round(s.conBono))));
+  setText('ahorroMensualHero', fmt(Math.round(s.conBono)));
   setText('esteMessHero', fmt(s.estesMes));
 
   if (s.ahorrado >= s.meta) {
@@ -2450,17 +2385,6 @@ function render() {
   setText('currentMonth', months[now.getMonth()].toUpperCase() + ' ' + now.getFullYear());
   setText('tituloMovimientosMes', '📋 Movimientos de ' + months[now.getMonth()] + ' ' + now.getFullYear());
 
-  // Metas section — labels dinámicos
-  try {
-    const ingresoM = config.ingresoQuincenal * 2;
-    const gastosM = state.gastosFijos.filter(g=>!g.pausado).reduce((s,g)=>s+g.quincena*2,0);
-    const dispM = ingresoM - gastosM;
-    const setText2 = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-    setText2('metasIngresoLabel', fmt(ingresoM));
-    setText2('metasGastosLabel', '~' + fmt(gastosM));
-    setText2('metasDisponibleLabel', fmt(Math.round(dispM)));
-  } catch(e) {}
-
   // Proyección, semanal, hitos — diferidos para no bloquear
   requestAnimationFrame(() => {
     actualizarProyeccion();
@@ -2470,6 +2394,7 @@ function render() {
   });
 
   renderMovimientos();
+  renderResumenGastosFijos();
 }
 
 // ============ MOVIMIENTOS ============
@@ -2521,13 +2446,12 @@ function guardarEdicionMov() {
 
   const nuevoTipo = document.getElementById('editMovTipo').value;
   const nuevaCat = document.getElementById('editMovCat').value;
-  const nuevoMonto = parseFloat(document.getElementById('editMovMonto').value);
-  if (!nuevoMonto || nuevoMonto <= 0) { showToast('Ingresa un monto válido', '#ef4444'); return; }
+  const nuevoMonto = parseFloat(document.getElementById('editMovMonto').value) || 0;
   const nuevaNota = document.getElementById('editMovNota').value;
   const nuevaFecha = document.getElementById('editMovFecha').value;
 
   // Revertir efecto anterior en ahorro
-  if (m.tipo === 'ahorro' && m.categoria === 'Meta $56k') state.config.ahorroActual = Math.max(0, state.config.ahorroActual - m.monto);
+  if (m.tipo === 'ahorro' && m.categoria === 'Meta $56k') state.config.ahorroActual -= m.monto;
   if (m.tipo === 'gasto' && (m.categoria === 'Gastos mini' || m.categoria === 'Subscripciones')) state.config.ahorroActual += m.monto;
 
   // Aplicar nuevos valores
@@ -2546,7 +2470,8 @@ function confirmarBorrarMovimiento(id) {
   const m = state.movimientos.find(m => m.id === id);
   if (!m) return;
   const label = `${m.categoria} · ${fmt(m.monto)} · ${m.fecha}`;
-  mostrarConfirm('¿Eliminar este movimiento?', label, () => borrarMovimiento(id));
+  if (!confirm(`¿Eliminar este movimiento?\n\n${label}`)) return;
+  borrarMovimiento(id);
 }
 
 // ============ RESUMEN GASTOS FIJOS DINÁMICO ============
@@ -2608,11 +2533,11 @@ function registrarMovimiento() {
   const cat = document.getElementById('catMovimiento').value;
   const monto = parseFloat(document.getElementById('montoMovimiento').value);
   const nota = document.getElementById('notaMovimiento').value;
-  const fecha = document.getElementById('fechaMovimiento').value || fechaHoy();
+  const fecha = document.getElementById('fechaMovimiento').value || new Date().toISOString().slice(0,10);
 
   if (!monto || monto <= 0) { showToast('Ingresa un monto válido', '#ef4444'); return; }
 
-  const mov = { id: _uid(), tipo, categoria: cat, monto, nota, fecha, tag: getTagSeleccionado() };
+  const mov = { id: Date.now().toString(), tipo, categoria: cat, monto, nota, fecha, tag: getTagSeleccionado() };
   state.movimientos.push(mov);
 
   // Si es ahorro a meta, aumentar acumulado
@@ -2622,7 +2547,7 @@ function registrarMovimiento() {
   // Si es gasto en Gastos mini o Subscripciones, descontar del ahorro
   if (tipo === 'gasto' && (cat === 'Gastos mini' || cat === 'Subscripciones')) {
     state.config.ahorroActual = Math.max(0, state.config.ahorroActual - monto);
-    showToast('✅ Guardado · ' + fmt(monto) + ' descontado del ahorro');
+    showToast('✅ Guardado · $' + monto.toLocaleString('es-MX') + ' descontado del ahorro');
     saveState(); render();
     document.getElementById('montoMovimiento').value = '';
     document.getElementById('notaMovimiento').value = '';
@@ -2639,7 +2564,7 @@ function registrarMovimiento() {
 function borrarMovimiento(id) {
   const mov = state.movimientos.find(m => m.id === id);
   if (mov && mov.tipo === 'ahorro' && mov.categoria === 'Meta $56k') {
-    state.config.ahorroActual = Math.max(0, state.config.ahorroActual - mov.monto);
+    state.config.ahorroActual -= mov.monto;
   }
   // Revertir descuento de ahorro si era Gastos mini o Subscripciones
   if (mov && mov.tipo === 'gasto' && (mov.categoria === 'Gastos mini' || mov.categoria === 'Subscripciones')) {
@@ -2652,22 +2577,12 @@ function borrarMovimiento(id) {
 
 function borrarMovimientos() {
   const total = state.movimientos.length;
-  mostrarConfirm(
-    `¿Eliminar TODOS los movimientos?`,
-    `Se borrarán ${total} registros permanentemente. Esta acción no se puede deshacer.`,
-    () => {
-      mostrarConfirm(
-        '⚠️ Segunda confirmación',
-        '¿Seguro que quieres borrar todo el historial?',
-        () => {
-          state.movimientos = [];
-          saveState();
-          render();
-          showToast('Movimientos eliminados');
-        }
-      );
-    }
-  );
+  if (!confirm(`¿Eliminar TODOS los movimientos?\n\nSe borrarán ${total} registros permanentemente.\nEsta acción no se puede deshacer.`)) return;
+  if (!confirm('⚠️ Segunda confirmación: ¿seguro que quieres borrar todo el historial?')) return;
+  state.movimientos = [];
+  saveState();
+  render();
+  showToast('Movimientos eliminados');
 }
 
 // ============ CERRAR MES ============
@@ -2676,19 +2591,8 @@ function cerrarMes() {
   const now = new Date();
   const mesNombre = getMonthName(mk);
 
-  mostrarConfirm(
-    `¿Cerrar ${mesNombre}?`,
-    'Los sobrantes de cada categoría se acumularán al próximo mes.',
-    () => _ejecutarCierreMes(mk, mesNombre)
-  );
-}
+  if (!confirm(`¿Cerrar ${mesNombre}?\n\nLos sobrantes de cada categoría se acumularán al próximo mes.`)) return;
 
-function _ejecutarCierreMes(mk, mesNombre) {
-  // Guard: evitar cerrar el mismo mes dos veces
-  if (state.movimientos.some(m => m.archivado && m.fecha && m.fecha.startsWith(mk))) {
-    showToast('⚠️ Este mes ya fue cerrado', '#f59e0b');
-    return;
-  }
   // Calcular sobrantes y actualizar saldoInicial de cada categoría
   state.gastosFijos.forEach(g => {
     const montoActualBase = g.saldoInicial || 0;
@@ -2706,7 +2610,7 @@ function _ejecutarCierreMes(mk, mesNombre) {
   });
 
   // Descontar Gastos mini y Subscripciones fijos del ahorro para el nuevo mes
-  const catDescuento = state.gastosFijos.filter(g => (g.id === 'gastosmini' || g.id === 'suscripciones') && !g.pausado);
+  const catDescuento = state.gastosFijos.filter(g => g.id === 'gastosmini' || g.id === 'suscripciones');
   catDescuento.forEach(g => {
     state.config.ahorroActual = Math.max(0, state.config.ahorroActual - (g.quincena * 2));
   });
@@ -2723,14 +2627,12 @@ function _ejecutarCierreMes(mk, mesNombre) {
   renderFondos();
 }
 
-
 // ============ HISTORIAL ============
 function renderHistorial() {
   const el = document.getElementById('historialMeses');
   // Agrupar movimientos por mes
   const porMes = {};
   state.movimientos.forEach(m => {
-    if (!m.fecha) return;
     const mk = m.fecha.slice(0,7);
     if (!porMes[mk]) porMes[mk] = [];
     porMes[mk].push(m);
@@ -2827,11 +2729,10 @@ function renderConfig() {
 }
 
 function guardarConfig() {
-  state.config.ingresoQuincenal = parseFloat(document.getElementById('cfgIngresoQuincenal').value) || state.config.ingresoQuincenal;
-  state.config.bono = parseFloat(document.getElementById('cfgBono').value) || state.config.bono;
-  state.config.meta1 = parseFloat(document.getElementById('cfgMeta1').value) || state.config.meta1;
-  const nuevoAhorro = document.getElementById('cfgAhorro').value;
-  if (nuevoAhorro !== '') state.config.ahorroActual = parseFloat(nuevoAhorro) || state.config.ahorroActual;
+  state.config.ingresoQuincenal = parseFloat(document.getElementById('cfgIngresoQuincenal').value) || 13417;
+  state.config.bono = parseFloat(document.getElementById('cfgBono').value) || 9384;
+  state.config.meta1 = parseFloat(document.getElementById('cfgMeta1').value) || 56000;
+  state.config.ahorroActual = parseFloat(document.getElementById('cfgAhorro').value) || 0;
   saveState();
   render();
   showToast('✅ Configuración guardada');
@@ -2849,7 +2750,6 @@ function guardarGastos() {
 }
 
 function forzarRefresh() {
-  invalidarCache();
   state = loadState();
   render();
   showToast('🔄 Datos recargados desde memoria');
@@ -2865,23 +2765,11 @@ function forzarGuardado() {
 }
 
 function exportarDatos() {
-  try {
-    const json = JSON.stringify(state, null, 2);
-    const blob = new Blob([json], {type:'application/json'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'mis_finanzas_' + fechaHoy() + '.json';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 500);
-  } catch(e) {
-    // Fallback para Safari iOS que bloquea createObjectURL en algunos contextos
-    const json = JSON.stringify(state, null, 2);
-    const win = window.open('', '_blank');
-    if (win) { win.document.write('<pre>' + json + '</pre>'); win.document.title = 'mis_finanzas.json'; }
-    else { showToast('Copia los datos desde la consola', '#ef4444'); console.log(json); }
-  }
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'mis_finanzas.json';
+  a.click();
 }
 
 // ============ PROYECCIÓN EN RESUMEN ============
@@ -2902,13 +2790,10 @@ function actualizarProyeccion() {
 }
 
 // ============ CONFETI ============
-let _confettiId = null;
 function lanzarConfeti() {
-  if (_confettiId) { cancelAnimationFrame(_confettiId); _confettiId = null; }
   const canvas = document.getElementById('confettiCanvas');
   canvas.style.display = 'block';
   const ctx = canvas.getContext('2d');
-  if (!ctx) return;
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   const piezas = Array.from({length:120}, () => ({
@@ -2928,8 +2813,7 @@ function lanzarConfeti() {
       p.x += p.vx; p.y += p.vy; p.rot += p.vrot; p.vy += 0.1;
     });
     frame++;
-    if (frame < 180) _confettiId = requestAnimationFrame(animar);
-    else { _confettiId = null; }
+    if (frame < 180) requestAnimationFrame(animar);
     else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.display='none'; }
   }
   animar();
@@ -2993,7 +2877,7 @@ function renderBovedas() {
           <div style="height:100%; width:${pct}%; background:var(--accent); border-radius:6px;"></div>
         </div>
         <div class="boveda-edit">
-          <input type="number" value="${b.saldo||0}" placeholder="Saldo" inputmode="decimal" step="any" onchange="actualizarBoveda(${i}, this.value)">
+          <input type="number" value="${b.saldo||0}" placeholder="Saldo" onchange="actualizarBoveda(${i}, this.value)">
           <button onclick="eliminarBoveda(${i})" style="background:rgba(248,113,113,0.15);border:1px solid rgba(248,113,113,0.3);border-radius:8px;color:var(--red);padding:6px 12px;cursor:pointer;font-size:12px;">✕</button>
         </div>
       </div>
@@ -3071,16 +2955,16 @@ function renderBovedas() {
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
         <div>
           <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:4px;">Valor inicio de mes (MXN)</div>
-          <input type="number" id="gbmInicio" placeholder="$0.00" inputmode="decimal" step="any" style="width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(52,211,153,0.3); border-radius:8px; color:#fff; font-family:'DM Mono',monospace; font-size:13px; padding:8px 10px; outline:none;">
+          <input type="number" id="gbmInicio" placeholder="$0.00" style="width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(52,211,153,0.3); border-radius:8px; color:#fff; font-family:'DM Mono',monospace; font-size:13px; padding:8px 10px; outline:none;">
         </div>
         <div>
           <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:4px;">Valor fin de mes (MXN)</div>
-          <input type="number" id="gbmFin" placeholder="$0.00" inputmode="decimal" step="any" style="width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(52,211,153,0.3); border-radius:8px; color:#fff; font-family:'DM Mono',monospace; font-size:13px; padding:8px 10px; outline:none;">
+          <input type="number" id="gbmFin" placeholder="$0.00" style="width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(52,211,153,0.3); border-radius:8px; color:#fff; font-family:'DM Mono',monospace; font-size:13px; padding:8px 10px; outline:none;">
         </div>
       </div>
       <div style="margin-bottom:8px;">
         <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:4px;">Aportación este mes (MXN)</div>
-        <input type="number" id="gbmAportacion" placeholder="$0.00" inputmode="decimal" step="any" style="width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(52,211,153,0.3); border-radius:8px; color:#fff; font-family:'DM Mono',monospace; font-size:13px; padding:8px 10px; outline:none;">
+        <input type="number" id="gbmAportacion" placeholder="$0.00" style="width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(52,211,153,0.3); border-radius:8px; color:#fff; font-family:'DM Mono',monospace; font-size:13px; padding:8px 10px; outline:none;">
       </div>
       <button onclick="guardarRegistroGBM()" style="width:100%; background:linear-gradient(135deg,#059669,#047857); border:none; border-radius:10px; color:#fff; font-family:'Syne',sans-serif; font-size:13px; font-weight:700; padding:12px; cursor:pointer;">💾 Guardar registro del mes</button>
     </div>
@@ -3111,18 +2995,15 @@ function guardarRegistroGBM() {
   const gbm = state.bovedas.find(b => b.id === 'gbm');
   if (!gbm) return;
   if (!gbm.registros) gbm.registros = [];
-  const inicioRaw = document.getElementById('gbmInicio').value;
-  const finRaw = document.getElementById('gbmFin').value;
-  const aportacionRaw = document.getElementById('gbmAportacion').value;
-  const inicio = inicioRaw !== '' ? parseFloat(inicioRaw) : null;
-  const fin    = finRaw   !== '' ? parseFloat(finRaw)   : null;
-  const aportacion = aportacionRaw !== '' ? parseFloat(aportacionRaw) : null;
+  const inicio = parseFloat(document.getElementById('gbmInicio').value) || 0;
+  const fin = parseFloat(document.getElementById('gbmFin').value) || 0;
+  const aportacion = parseFloat(document.getElementById('gbmAportacion').value) || 0;
   const ahora = new Date();
   const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   const mes = meses[ahora.getMonth()] + ' ' + ahora.getFullYear();
-  gbm.registros.push({ mes, inicio, fin, aportacion, fecha: fechaHoy() });
+  gbm.registros.push({ mes, inicio: inicio||null, fin: fin||null, aportacion: aportacion||null, fecha: new Date().toISOString().slice(0,10) });
   // Actualizar saldo de la bóveda con el valor fin (o inicio si no hay fin)
-  gbm.saldo = (fin !== null && fin !== undefined && fin !== '') ? fin : ((inicio !== null && inicio !== undefined && inicio !== '') ? inicio : gbm.saldo);
+  gbm.saldo = fin || inicio || gbm.saldo;
   document.getElementById('gbmInicio').value = '';
   document.getElementById('gbmFin').value = '';
   document.getElementById('gbmAportacion').value = '';
@@ -3156,7 +3037,7 @@ function agregarBoveda() {
   const icon = document.getElementById('bovedaIcon').value;
   const saldo = parseFloat(document.getElementById('bovedaSaldo').value)||0;
   if (!nombre) { showToast('Escribe un nombre', '#ef4444'); return; }
-  state.bovedas.push({ id: _uid(), nombre, icon, saldo });
+  state.bovedas.push({ id: Date.now().toString(), nombre, icon, saldo });
   document.getElementById('bovedaNombre').value = '';
   document.getElementById('bovedaSaldo').value = '';
   saveState();
@@ -3214,9 +3095,8 @@ function renderRecurrentes() {
 
 function aplicarRecurrente(i) {
   const r = state.recurrentes[i];
-  if (!r) { showToast('Error: recurrente no encontrado', '#ef4444'); return; }
-  const fecha = fechaHoy();
-  state.movimientos.push({ id: _uid(), tipo:'gasto', categoria: r.categoria, monto: r.monto, nota: r.nombre + ' (recurrente)', fecha });
+  const fecha = new Date().toISOString().slice(0,10);
+  state.movimientos.push({ id: Date.now().toString(), tipo:'gasto', categoria: r.categoria, monto: r.monto, nota: r.nombre + ' (recurrente)', fecha });
   saveState();
   render();
   renderRecurrentes();
@@ -3227,13 +3107,13 @@ function aplicarTodosRecurrentes() {
   const { recurrentes, movimientos } = state;
   const mk = getCurrentMonthKey();
   const hoy = new Date();
-  const fecha = fechaHoy();
+  const fecha = hoy.toISOString().slice(0,10);
   let count = 0;
   recurrentes.forEach(r => {
     if (r.activo === false) return;
     const yaReg = movimientos.some(m => m.tipo==='gasto' && m.categoria===r.categoria && m.nota && m.nota.includes(r.nombre) && m.fecha && m.fecha.startsWith(mk));
     if (!yaReg && hoy.getDate()>=r.dia) {
-      state.movimientos.push({ id: _uid(), tipo:'gasto', categoria:r.categoria, monto:r.monto, nota:r.nombre+' (recurrente)', fecha });
+      state.movimientos.push({ id: Date.now().toString()+r.id, tipo:'gasto', categoria:r.categoria, monto:r.monto, nota:r.nombre+' (recurrente)', fecha });
       count++;
     }
   });
@@ -3248,7 +3128,7 @@ function agregarRecurrente() {
   const dia = parseInt(document.getElementById('recDia').value)||1;
   if (!nombre || !monto) { showToast('Completa todos los campos', '#ef4444'); return; }
   const icons = {'Subscripciones':'📱','Servicios hogar':'🏠','Gastos mini':'🪙','Entretenimiento y placer':'🎬','Otro':'🔁'};
-  state.recurrentes.push({ id: _uid(), nombre, categoria, monto, dia, icon: icons[categoria]||'🔁' });
+  state.recurrentes.push({ id: Date.now().toString(), nombre, categoria, monto, dia, icon: icons[categoria]||'🔁' });
   document.getElementById('recNombre').value='';
   document.getElementById('recMonto').value='';
   saveState(); renderRecurrentes();
@@ -3312,33 +3192,23 @@ ${gastosFijos.filter(g=>!g.pausado).map(g=>`- ${g.nombre}: presupuesto ${fmt(g.q
 Responde de forma útil, concreta y motivadora. Si el usuario pregunta algo fuera del contexto financiero, redirige gentilmente.`;
 }
 
-let _iaSending = false;
 async function enviarMensajeIA() {
-  if (_iaSending) return;
   const input = document.getElementById('chatInput');
   const msg = input.value.trim();
   if (!msg) return;
-  _iaSending = true;
+  preguntarIA(msg);
   input.value = '';
-  try {
-    await preguntarIA(msg);
-  } finally {
-    _iaSending = false;
-  }
 }
 
 async function preguntarIA(pregunta) {
   const messagesEl = document.getElementById('chatMessages');
-  if (!messagesEl) return;
 
   // Agregar mensaje usuario
-  messagesEl.innerHTML += `<div class="chat-msg user">${sanitizeHTML(pregunta)}</div>`;
+  messagesEl.innerHTML += `<div class="chat-msg user">${pregunta}</div>`;
   messagesEl.innerHTML += `<div class="chat-msg ai thinking" id="thinkingMsg">✦ Analizando tus datos...</div>`;
   messagesEl.scrollTop = messagesEl.scrollHeight;
 
   chatHistory.push({ role:'user', content: pregunta });
-  // Limitar historial a 20 mensajes para evitar desbordamiento de contexto y memory leak
-  if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -3351,17 +3221,13 @@ async function preguntarIA(pregunta) {
         messages: chatHistory
       })
     });
-    if (!response.ok) {
-      const errData = await response.json().catch(()=>({}));
-      throw new Error(errData?.error?.message || `HTTP ${response.status}`);
-    }
     const data = await response.json();
     const reply = data.content?.[0]?.text || 'No pude procesar tu pregunta. Intenta de nuevo.';
     chatHistory.push({ role:'assistant', content: reply });
 
     const thinking = document.getElementById('thinkingMsg');
     if (thinking) thinking.remove();
-    messagesEl.innerHTML += `<div class="chat-msg ai">${sanitizeHTML(reply).replace(/\n/g,'<br>')}</div>`;
+    messagesEl.innerHTML += `<div class="chat-msg ai">${reply.replace(/\n/g,'<br>')}</div>`;
     messagesEl.scrollTop = messagesEl.scrollHeight;
   } catch(e) {
     const thinking = document.getElementById('thinkingMsg');
@@ -3382,7 +3248,6 @@ function renderResumenSemanal() {
   inicioSemana.setHours(0,0,0,0);
   const finSemana = new Date(inicioSemana);
   finSemana.setDate(inicioSemana.getDate() + 6);
-  finSemana.setHours(23, 59, 59, 999);
 
   const gastosSemana = state.movimientos.filter(m => {
     if (m.tipo !== 'gasto' || !m.fecha) return false;
@@ -3392,7 +3257,7 @@ function renderResumenSemanal() {
 
   const totalSemana = gastosSemana.reduce((s,m) => s+m.monto, 0);
   const presupuestoSemanal = state.gastosFijos.filter(g=>!g.pausado).reduce((s,g)=>s+g.quincena*2,0) / 4;
-  const pct = presupuestoSemanal > 0 ? Math.min(100, (totalSemana/presupuestoSemanal)*100) : 0;
+  const pct = Math.min(100, (totalSemana/presupuestoSemanal)*100);
   const color = pct >= 90 ? '#f87171' : pct >= 65 ? '#fbbf24' : '#4ade80';
 
   const dias = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
@@ -3474,7 +3339,8 @@ function renderCalendario() {
   document.getElementById('calDiasConGastos').textContent = diasConGastos;
 
   // Construir grid
-  const primerDia = new Date(calAnio, calMes, 1).getDay(); // 0=Dom, 1=Lun,...
+  const primerDia = new Date(calAnio, calMes, 1).getDay();
+  const offset = primerDia === 0 ? 6 : primerDia - 1;
   const diasMes = new Date(calAnio, calMes+1, 0).getDate();
   const hoyD = new Date().getDate();
   const hoyM = new Date().getMonth();
@@ -3486,8 +3352,9 @@ function renderCalendario() {
   let html = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb']
     .map(d=>`<div class="cal-day-header">${d}</div>`).join('');
 
-  // Celdas vacías: domingo = 0 celdas, lunes = 1, etc.
-  for (let i=0; i<primerDia; i++) html += `<div class="cal-day vacio"></div>`;
+  // Empty cells for offset (Sunday-first → adjust)
+  const sundayOffset = primerDia;
+  for (let i=0; i<sundayOffset; i++) html += `<div class="cal-day vacio"></div>`;
 
   for (let d=1; d<=diasMes; d++) {
     const gastosDia = porDia[d] || [];
@@ -3529,26 +3396,16 @@ function calMostrarDia(dia) {
 function renderPieChart(movs) {
   const canvas = document.getElementById('chartPie');
   if (!canvas) return;
-  // Safari iOS puede devolver offsetWidth=0 antes de pintar el layout
-  const W = canvas.getBoundingClientRect().width || canvas.offsetWidth || 220;
-  if (W < 10) { requestAnimationFrame(() => renderPieChart(movs)); return; }
   const porCat = {};
   movs.forEach(m => { porCat[m.categoria]=(porCat[m.categoria]||0)+m.monto; });
   const entries = Object.entries(porCat).sort((a,b)=>b[1]-a[1]).slice(0,7);
-  if (!entries.length) {
-    const ctx0 = canvas.getContext('2d');
-    if (ctx0) ctx0.clearRect(0,0,canvas.width,canvas.height);
-    const leg = document.getElementById('pieLegend');
-    if (leg) leg.innerHTML = '<div style="color:var(--muted);font-size:12px;">Sin gastos este mes</div>';
-    return;
-  }
+  if (!entries.length) { canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height); document.getElementById('pieLegend').innerHTML='<div style="color:var(--muted);font-size:12px;">Sin gastos este mes</div>'; return; }
   const total = entries.reduce((s,[,v])=>s+v,0);
   const colors = ['#7c6af7','#f87171','#fbbf24','#4ade80','#34d399','#f472b6','#60a5fa'];
-  const canvasW = Math.min(W, 200);
-  canvas.width = canvasW; canvas.height = canvasW;
+  const W = Math.min(canvas.offsetWidth||200, 200);
+  canvas.width = W; canvas.height = W;
   const ctx = canvas.getContext('2d');
-  if (!ctx) return;
-  const cx=canvasW/2, cy=canvasW/2, r=canvasW/2-10;
+  const cx=W/2, cy=W/2, r=W/2-10;
   let angle = -Math.PI/2;
   ctx.clearRect(0,0,W,W);
   entries.forEach(([cat,val],i) => {
@@ -3562,7 +3419,7 @@ function renderPieChart(movs) {
   // Center hole
   ctx.beginPath(); ctx.arc(cx,cy,r*0.5,0,Math.PI*2);
   ctx.fillStyle='#12121a'; ctx.fill();
-  ctx.fillStyle='#e8e8f0'; ctx.font=`bold ${canvasW>150?13:10}px DM Mono`;
+  ctx.fillStyle='#e8e8f0'; ctx.font=`bold ${W>150?13:10}px DM Mono`;
   ctx.textAlign='center'; ctx.textBaseline='middle';
   ctx.fillText(fmt(total),cx,cy);
 
@@ -3604,27 +3461,23 @@ function renderTagAnalisis(mk) {
 // ============ IMPORTAR JSON ============
 function importarDatos(input) {
   const file = input.files[0];
-  input.value = ''; // resetear inmediatamente para permitir reimportar el mismo archivo
   if (!file) return;
   const reader = new FileReader();
-  reader.onerror = () => { showToast('❌ Error al leer el archivo', '#ef4444'); input.value = ''; };
   reader.onload = (e) => {
     try {
       const data = JSON.parse(e.target.result);
       if (!data.config || !data.gastosFijos) { showToast('❌ Archivo inválido', '#ef4444'); return; }
-      mostrarConfirm('¿Importar estos datos?', 'Se reemplazarán los datos actuales.', () => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        state = loadState();
-        invalidarCache();
-        chatHistory = [];
-        render();
-        showToast('✅ Datos importados correctamente');
-      });
+      if (!confirm('¿Importar estos datos? Se reemplazarán los actuales.')) return;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      state = loadState();
+      render();
+      showToast('✅ Datos importados correctamente');
     } catch(err) {
       showToast('❌ Error al leer el archivo', '#ef4444');
     }
   };
   reader.readAsText(file);
+  input.value = '';
 }
 
 // ============ NOTAS DEL MES ============
@@ -3669,23 +3522,16 @@ function renderNotasHistorial() {
 }
 
 // ============ INIT ============
-// ============ GUARDAR AL CERRAR/MINIMIZAR (evita pérdida por debounce de 400ms) ============
-window.addEventListener('pagehide', () => { try { saveStateNow(); } catch(e) {} });
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden') { try { saveStateNow(); } catch(e) {} }
-});
-
 document.addEventListener('DOMContentLoaded', () => {
-  try { document.getElementById('fechaMovimiento').value = fechaHoy(); } catch(e) {}
-  try { render(); } catch(e) { console.error('render error:', e); }
-  try { checkQuincenaPendiente(); } catch(e) {}
-  try { document.getElementById('simAhorroLabel').textContent = fmt(0); } catch(e) {}
-  try { document.getElementById('simBonosLabel').textContent = fmt(0); } catch(e) {}
-  try { document.getElementById('simReducLabel').textContent = fmt(0); } catch(e) {}
-  try { autoAplicarRecurrentes(); } catch(e) {}
-  try { renderResumenSemanal(); } catch(e) {}
-  try { renderNotaMes(); } catch(e) {}
-  try { renderResumenGastosFijos(); } catch(e) {}
+  document.getElementById('fechaMovimiento').value = new Date().toISOString().slice(0,10);
+  render();
+  checkQuincenaPendiente();
+  document.getElementById('simAhorroLabel').textContent = fmt(0);
+  document.getElementById('simBonosLabel').textContent = fmt(0);
+  document.getElementById('simReducLabel').textContent = fmt(0);
+  autoAplicarRecurrentes();
+  renderResumenSemanal();
+  renderNotaMes();
 });
 
 // ============ EDICIÓN INLINE DE CATEGORÍAS ============
@@ -3700,7 +3546,7 @@ function toggleInlineEdit(id) {
   if (!isOpen) {
     panel.style.display = 'block';
     btn.textContent = '▲ Cerrar edición';
-    try { panel.querySelector('input').focus(); } catch(e) {}
+    panel.querySelector('input').focus();
   }
 }
 
@@ -3727,13 +3573,13 @@ function autoAplicarRecurrentes() {
   const { recurrentes, movimientos } = state;
   const mk = getCurrentMonthKey();
   const hoy = new Date();
-  const fecha = fechaHoy();
+  const fecha = hoy.toISOString().slice(0,10);
   let count = 0;
   recurrentes.forEach(r => {
     if (r.activo === false) return; // solo aplica los activos
     const yaReg = movimientos.some(m => m.tipo==='gasto' && m.categoria===r.categoria && m.nota && m.nota.includes(r.nombre) && m.fecha && m.fecha.startsWith(mk));
     if (!yaReg && hoy.getDate() >= r.dia) {
-      state.movimientos.push({ id: _uid(), tipo:'gasto', categoria:r.categoria, monto:r.monto, nota:r.nombre+' (recurrente)', fecha });
+      state.movimientos.push({ id: Date.now().toString()+r.id, tipo:'gasto', categoria:r.categoria, monto:r.monto, nota:r.nombre+' (recurrente)', fecha });
       count++;
     }
   });
