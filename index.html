@@ -1545,10 +1545,15 @@ let state = loadState();
 // ============ UTILIDADES OPTIMIZADAS ============
 const _fmtCache = new Map();
 function fmt(n) {
+  if (isNaN(n) || n === null || n === undefined) return '$0';
   const k = Math.round(n * 100);
   if (_fmtCache.has(k)) return _fmtCache.get(k);
-  const r = '$' + Number(n).toLocaleString('es-MX', {minimumFractionDigits: n % 1 !== 0 ? 2 : 0, maximumFractionDigits: 2});
-  if (_fmtCache.size > 500) _fmtCache.clear(); // evitar memory leak
+  const absN = Math.abs(n);
+  const decimals = (absN % 1 !== 0) ? 2 : 0;
+  const parts = absN.toFixed(decimals).split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const r = (n < 0 ? '-$' : '$') + parts.join('.');
+  if (_fmtCache.size > 500) _fmtCache.clear();
   _fmtCache.set(k, r);
   return r;
 }
@@ -1759,7 +1764,7 @@ function mostrarSiguienteOverflow() {
   const { g, saldoActual } = overflowActual;
   const excedente = saldoActual - OVERFLOW_TARGET;
 
-  document.getElementById('modalOverflowTitle').textContent = `${g.icon} ${g.nombre} llegó a $${saldoActual.toLocaleString('es-MX')}`;
+  document.getElementById('modalOverflowTitle').textContent = `${g.icon} ${g.nombre} llegó a ${fmt(saldoActual)}`;
   document.getElementById('modalOverflowSub').textContent =
     `Esta categoría acumuló más de ${fmt(OVERFLOW_LIMIT)}. Te recomendamos bajarla a ${fmt(OVERFLOW_TARGET)} y pasar el excedente al ahorro de la meta.`;
   document.getElementById('modalOverflowDetail').innerHTML = `
@@ -2546,7 +2551,7 @@ function registrarMovimiento() {
   // Si es gasto en Gastos mini o Subscripciones, descontar del ahorro
   if (tipo === 'gasto' && (cat === 'Gastos mini' || cat === 'Subscripciones')) {
     state.config.ahorroActual = Math.max(0, state.config.ahorroActual - monto);
-    showToast('✅ Guardado · $' + monto.toLocaleString('es-MX') + ' descontado del ahorro');
+    showToast('✅ Guardado · ' + fmt(monto) + ' descontado del ahorro');
     saveState(); render();
     document.getElementById('montoMovimiento').value = '';
     document.getElementById('notaMovimiento').value = '';
